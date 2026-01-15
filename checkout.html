@@ -63,45 +63,36 @@
 </footer>
 
 <script>
-document.getElementById("addressForm").addEventListener("submit", async function(e) {
+const API_BASE_URL = "https://ecoeye-backend.onrender.com";
+
+document.getElementById("addressForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  // 1️⃣ Get cart
   const cart = JSON.parse(localStorage.getItem("ecoeye_cart")) || [];
-
   if (cart.length === 0) {
     alert("🛒 Cart is empty");
     return;
   }
 
-  // 2️⃣ Get form values
   const form = e.target;
-  const fullName = form.querySelector('input[placeholder="John Doe"]').value.trim();
-  const phone = form.querySelector('input[type="tel"]').value.trim();
-  const address = form.querySelector("textarea").value.trim();
-  const city = form.querySelector('input[placeholder="Bengaluru"]').value.trim();
-  const state = form.querySelector('input[placeholder="Karnataka"]').value.trim();
-  const pincode = form.querySelector('input[placeholder="560001"]').value.trim();
+  const inputs = form.querySelectorAll("input, textarea");
+
+  const [fullName, phone, address, city, state, pincode] =
+    Array.from(inputs).map(i => i.value.trim());
 
   if (!fullName || !phone || !address || !city || !state || !pincode) {
     alert("❗ Please fill all address fields");
     return;
   }
 
-  // 3️⃣ Build order object
   const orderData = {
-    customer: {
-      name: fullName,
-      phone
-    },
     items: cart,
-    total: cart.reduce((sum, item) => sum + item.price * item.quantity, 0),
+    total: cart.reduce((s, i) => s + i.price * i.quantity, 0),
     deliveryAddress: { address, city, state, pincode }
   };
 
-  // 4️⃣ SEND TO BACKEND (THIS WAS MISSING)
   try {
-    const res = await fetch("http://localhost:5000/api/orders", {
+    const res = await fetch(`${API_BASE_URL}/api/orders`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(orderData)
@@ -109,20 +100,20 @@ document.getElementById("addressForm").addEventListener("submit", async function
 
     const data = await res.json();
 
-    if (data.success) {
-      // 5️⃣ Clear cart & redirect
+    if (res.ok) {
       localStorage.removeItem("ecoeye_cart");
       window.location.href = "order-success.html";
     } else {
-      alert("❌ Order failed");
+      alert("❌ Order failed: " + (data.message || "Unknown error"));
     }
-
   } catch (err) {
-    alert("❌ Backend not reachable");
     console.error(err);
+    alert("❌ Backend not reachable");
   }
 });
 </script>
+
+
 
 
 </body>
