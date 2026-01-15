@@ -6,6 +6,11 @@ const $$ = (sel) => Array.from(document.querySelectorAll(sel));
 const byId = (id) => document.getElementById(id);
 
 /* ===============================
+   BACKEND BASE URL (PRODUCTION)
+   =============================== */
+const API_BASE_URL = "https://ecoeye-backend.onrender.com";
+
+/* ===============================
    DOM ready helper
    =============================== */
 function onReady(fn) {
@@ -42,93 +47,6 @@ function getLocation() {
 }
 
 window.getLocation = getLocation;
-
-/* ===============================
-   REPORT FORM (localStorage)
-   =============================== */
-// (function reportModule() {
-//   const STORAGE_KEY = "ecoeye_reports";
-
-//   function getReports() {
-//     try {
-//       return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-//     } catch {
-//       return [];
-//     }
-//   }
-
-//   function saveReports(list) {
-//     localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
-//   }
-
-//   function escapeHtml(str = "") {
-//     return String(str)
-//       .replace(/&/g, "&amp;")
-//       .replace(/</g, "&lt;")
-//       .replace(/>/g, "&gt;")
-//       .replace(/"/g, "&quot;")
-//       .replace(/'/g, "&#039;");
-//   }
-
-//   function renderReports() {
-//     const feed = byId("reportsFeed");
-//     if (!feed) return;
-
-//     const reports = getReports();
-//     if (!reports.length) {
-//       feed.innerHTML = "<p>No reports yet 🌱</p>";
-//       return;
-//     }
-
-//     feed.innerHTML = reports.map(r => `
-//       <article class="report-card">
-//         ${r.img ? `<img src="${r.img}" alt="Report image">` : ""}
-//         <p><strong>${escapeHtml(r.desc)}</strong></p>
-//         <small>📍 ${r.lat}, ${r.lng}</small>
-//       </article>
-//     `).join("");
-//   }
-
-//   onReady(() => {
-//     const form = byId("reportForm");
-//     renderReports();
-
-//     if (!form) return;
-
-//     form.addEventListener("submit", async (e) => {
-//       e.preventDefault();
-
-//       const desc = byId("description")?.value || "";
-//       const lat = byId("lat")?.value || "N/A";
-//       const lng = byId("lng")?.value || "N/A";
-//       const imgInput = byId("image");
-
-//       let imgUrl = "";
-//       if (imgInput?.files?.[0]) {
-//         const file = imgInput.files[0];
-//         const reader = new FileReader();
-//         imgUrl = await new Promise((res) => {
-//           reader.onload = () => res(reader.result);
-//           reader.readAsDataURL(file);
-//         });
-//       }
-
-//       const list = getReports();
-//       list.unshift({
-//         desc,
-//         lat,
-//         lng,
-//         img: imgUrl,
-//         ts: Date.now()
-//       });
-
-//       saveReports(list);
-//       byId("successPopup").style.display = "flex";
-//       form.reset();
-//       renderReports();
-//     });
-//   });
-// })();
 
 function closePopup() {
   byId("successPopup").style.display = "none";
@@ -172,6 +90,7 @@ onReady(() => {
    CART SYSTEM
    ======================= */
 const CART_KEY = "ecoeye_cart";
+const MAX_QTY_PER_ITEM = 5;
 
 function getCart() {
   try {
@@ -185,8 +104,6 @@ function saveCart(cart) {
   localStorage.setItem(CART_KEY, JSON.stringify(cart));
   updateCartCount();
 }
-const MAX_QTY_PER_ITEM = 5;
-
 
 function addToCart(product) {
   const cart = getCart();
@@ -207,7 +124,6 @@ function addToCart(product) {
   updateImpactStrip();
 }
 
-
 function updateCartCount() {
   const cartCount = document.getElementById("cartCount");
   if (!cartCount) return;
@@ -216,35 +132,32 @@ function updateCartCount() {
   const total = cart.reduce((sum, item) => sum + item.quantity, 0);
   cartCount.textContent = total;
   updateImpactStrip();
-
 }
 
 /* ===============================
-   IMPACT STRIP (NEW)
+   IMPACT STRIP
    =============================== */
 function updateImpactStrip() {
   const impactCount = document.getElementById("impactCount");
   const impactCO2 = document.getElementById("impactCO2");
-
   if (!impactCount || !impactCO2) return;
 
   const cart = getCart();
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-  const CO2_PER_ITEM = 2.5; // kg/year
-  const totalCO2 = (totalItems * CO2_PER_ITEM).toFixed(1);
-
+  const CO2_PER_ITEM = 2.5;
   impactCount.textContent = totalItems;
-  impactCO2.textContent = totalCO2;
+  impactCO2.textContent = (totalItems * CO2_PER_ITEM).toFixed(1);
 }
 
-/* ===============================
-   PAGE LOAD UPDATES
-   =============================== */
 document.addEventListener("DOMContentLoaded", () => {
   updateCartCount();
-  updateImpactStrip();   // ✅ ADDED
+  updateImpactStrip();
 });
+
+/* ===============================
+   CONTACT FORM
+   =============================== */
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("contactForm");
   if (!form) return;
@@ -253,12 +166,12 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
 
     const data = {
-      name: document.getElementById("name").value,
-      email: document.getElementById("email").value,
-      message: document.getElementById("message").value
+      name: byId("name").value,
+      email: byId("email").value,
+      message: byId("message").value
     };
 
-    const res = await fetch("http://localhost:5000/api/contact", {
+    await fetch(`${API_BASE_URL}/api/contact`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
@@ -268,79 +181,60 @@ document.addEventListener("DOMContentLoaded", () => {
     form.reset();
   });
 });
+
+/* ===============================
+   REPORT FORM
+   =============================== */
 document.getElementById("reportForm")?.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const imageInput = document.getElementById("image");
-  const file = imageInput?.files?.[0];
-
-  if (!file || !file.type.startsWith("image/")) {
-    alert("❌ Please upload a valid image file");
-    return;
-  }
-
-  if (file.size > 5 * 1024 * 1024) {
-    alert("❌ Image size must be under 5MB");
-    return;
-  }
-
-  // Generate Complaint ID
   const complaintId = "ECO-" + Date.now();
 
   const reportData = {
     complaintId,
-    category: document.getElementById("category").value,
-    urgency: document.getElementById("urgency").value,
-    description: document.getElementById("description").value,
-    latitude: document.getElementById("lat").value || "Not provided",
-    longitude: document.getElementById("lng").value || "Not provided",
+    category: byId("category").value,
+    urgency: byId("urgency").value,
+    description: byId("description").value,
+    latitude: byId("lat").value || "Not provided",
+    longitude: byId("lng").value || "Not provided",
     status: "Pending",
     createdAt: new Date().toISOString()
   };
 
-  try {
-    const res = await fetch("http://localhost:5000/api/reports", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(reportData)
-    });
+  const res = await fetch(`${API_BASE_URL}/api/reports`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(reportData)
+  });
 
-    if (res.ok) {
-      document.getElementById("successPopup").style.display = "flex";
-      alert(`✅ Report submitted!\nComplaint ID: ${complaintId}`);
-      document.getElementById("reportForm").reset();
-    } else {
-      alert("❌ Failed to submit report");
-    }
-  } catch (err) {
-    alert("❌ Backend not reachable");
-    console.error(err);
+  if (res.ok) {
+    alert(`✅ Report submitted!\nComplaint ID: ${complaintId}`);
+    byId("successPopup").style.display = "flex";
+    byId("reportForm").reset();
+  } else {
+    alert("❌ Failed to submit report");
   }
 });
 
+/* ===============================
+   ORDER SUBMISSION
+   =============================== */
 async function sendOrderToBackend(orderData) {
-  try {
-    const res = await fetch("http://localhost:5000/api/orders", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(orderData)
-    });
+  const res = await fetch(`${API_BASE_URL}/api/orders`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(orderData)
+  });
 
-    if (res.ok) {
-      // clear cart
-      localStorage.removeItem("ecoeye_cart");
-      updateCartCount();
-
-      // redirect to success page
-      window.location.href = "order-success.html";
-    } else {
-      alert("❌ Order failed");
-    }
-  } catch (err) {
-    alert("❌ Backend not reachable");
-    console.error(err);
+  if (res.ok) {
+    localStorage.removeItem("ecoeye_cart");
+    updateCartCount();
+    window.location.href = "order-success.html";
+  } else {
+    alert("❌ Order failed");
   }
 }
+
 document.addEventListener("DOMContentLoaded", () => {
   const checkoutForm = document.getElementById("checkoutForm");
   if (!checkoutForm) return;
@@ -348,48 +242,26 @@ document.addEventListener("DOMContentLoaded", () => {
   checkoutForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    // 🔒 Address validation
-    const address = document.getElementById("address").value.trim();
-    const city = document.getElementById("city").value.trim();
-    const state = document.getElementById("state").value.trim();
-    const pincode = document.getElementById("pincode").value.trim();
+    const address = byId("address").value.trim();
+    const city = byId("city").value.trim();
+    const state = byId("state").value.trim();
+    const pincode = byId("pincode").value.trim();
 
     if (!address || !city || !state || !pincode) {
       alert("❗ Please fill complete delivery address");
       return;
     }
 
-    const cart = JSON.parse(localStorage.getItem("ecoeye_cart")) || [];
-
+    const cart = getCart();
     if (cart.length === 0) {
       alert("🛒 Cart is empty");
       return;
     }
 
-    const orderData = {
+    sendOrderToBackend({
       items: cart,
-      total: cart.reduce(
-        (sum, item) => sum + item.price * item.quantity,
-        0
-      ),
-      deliveryAddress: {
-        address,
-        city,
-        state,
-        pincode
-      }
-    };
-
-    sendOrderToBackend(orderData);
+      total: cart.reduce((s, i) => s + i.price * i.quantity, 0),
+      deliveryAddress: { address, city, state, pincode }
+    });
   });
 });
-
-
-
-
-
-
-
-
-
-
