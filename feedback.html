@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eco Eye | Feedback</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <!-- Same CSS as other pages -->
+  <link rel="stylesheet" href="css/style.css">
+  <script defer src="js/main.js"></script>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <a class="logo" href="index.html">
+        <span class="dot">🌍</span>
+        <span>Eco Eye</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="categories.html">Eco Products</a></li>
+        <li><a href="cart.html">Cart (<span id="cartCount">0</span>)</a></li>
+        <li><a href="report.html">Report Garbage</a></li>
+        <li><a href="feedback.html" class="active">Feedback</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="content">
+    <h1>Complaint Feedback</h1>
+    <p style="text-align:center;">
+      Please let us know whether the reported garbage issue has been resolved.
+    </p>
+
+    <!-- FEEDBACK FORM -->
+    <form id="feedbackForm">
+
+  <label>Complaint ID:</label>
+  <input 
+    type="text" 
+    id="complaintId" 
+    placeholder="Enter your Complaint ID (e.g. ECO-1705321123123)" 
+    required
+  />
+
+  <label>Has the reported work been completed?</label>
+  <select id="status" required>
+    <option value="">-- Select an option --</option>
+    <option value="done">✅ Yes, work is completed</option>
+    <option value="not-done">❌ No, work is not completed</option>
+  </select>
+
+  <div id="confirmBox" style="display:none; margin-top:20px;">
+    <p style="font-weight:600; color:#1b5e20;">
+      🎉 Thank you for confirming! Your complaint has been resolved.
+    </p>
+    <button type="submit" class="btn">Submit Feedback</button>
+  </div>
+
+  <div id="contactBox" style="display:none; margin-top:20px;">
+    <p style="font-weight:600; color:#b71c1c;">
+      ⚠️ Issue not resolved. Please contact our officials:
+    </p>
+
+    <div class="contact-info">
+      <p>
+        <strong>Ms.Ramitha</strong><br>
+        Environmental Response Coordinator<br>
+        📞 8310093816
+      </p>
+
+      <p>
+        <strong>Ms.Manisha</strong><br>
+        Municipal Liaison Officer<br>
+        📞 8095980082
+      </p>
+    </div>
+  </div>
+
+</form>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Eco Eye | Connect • Care • Conserve</p>
+  </footer>
+
+  <!-- PAGE SCRIPT -->
+  <script>
+  const statusSelect = document.getElementById("status");
+  const confirmBox = document.getElementById("confirmBox");
+  const contactBox = document.getElementById("contactBox");
+  const complaintIdInput = document.getElementById("complaintId");
+  const form = document.getElementById("feedbackForm");
+
+  statusSelect.addEventListener("change", () => {
+    if (!complaintIdInput.value.trim()) {
+      alert("❗ Please enter your Complaint ID first");
+      statusSelect.value = "";
+      return;
+    }
+
+    if (statusSelect.value === "done") {
+      confirmBox.style.display = "block";
+      contactBox.style.display = "none";
+    } else if (statusSelect.value === "not-done") {
+      contactBox.style.display = "block";
+      confirmBox.style.display = "none";
+    }
+  });
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const complaintId = complaintIdInput.value.trim();
+
+    alert(
+      `✅ Feedback submitted successfully!\nComplaint ID: ${complaintId}`
+    );
+
+    form.reset();
+    confirmBox.style.display = "none";
+    contactBox.style.display = "none";
+  });
+</script>
+
+</body>
+</html>

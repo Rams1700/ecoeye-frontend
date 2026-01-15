@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eco Eye | Contact Us</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script defer src="js/main.js"></script>
+</head>
+<body>
+  <header>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+  <a class="logo" href="index.html">
+    <span class="dot">🌍</span>
+    <span>Eco Eye</span>
+  </a>
+
+  <div style="display:flex; align-items:center; gap:18px;">
+    <ul class="nav-links" style="display:flex; gap:20px;">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="categories.html">Eco Products</a></li>
+      <!-- single canonical cart link — keep this one -->
+      <li><a class="cart-link" href="cart.html">Cart (<span id="cartCount">0</span>)</a></li>
+      <li><a href="report.html">Report Garbage</a></li>
+      <li><a href="feedback.html">Feedback</a></li>
+
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+  </header>
+
+  <main class="content">
+    <h1>Contact Us</h1>
+    <p>
+      Have ideas, feedback, or want to collaborate with Eco Eye?  
+      Reach out using the form below — we’d love to hear from you.
+    </p>
+
+    <form id="contactForm" class="contact-form">
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" placeholder="Enter your name" required />
+
+      <label for="email">Email Address:</label>
+      <input type="email" id="email" placeholder="Enter your email" required />
+
+      <label for="message">Message:</label>
+      <textarea id="message" rows="5" placeholder="Type your message here..." required></textarea>
+
+      <button type="submit" class="btn">Send Message</button>
+    </form>
+
+    <div class="contact-info">
+      <p>📧 Email: <a href="mailto:support@ecoeye.com">support@ecoeye.com</a></p>
+      <p>📞 Phone: +91 98765 43210</p>
+      <p>🏢 Address: Eco Eye HQ, Green Valley, Bengaluru, India</p>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 Eco Eye | Connect • Care • Conserve</p>
+  </footer>
+  <form id="contactForm">
+  
+  <label>Full Name:</label>
+  <input type="text" id="name" placeholder="Enter your name" required />
+
+  <label>Email Address:</label>
+  <input type="email" id="email" placeholder="Enter your email" required />
+
+  <label>Message:</label>
+  <textarea id="message" placeholder="Type your message here..." required></textarea>
+
+  <button type="submit">Send Message</button>
+</form>
+
+<script src="js/main.js"></script>
+
+
+</body>
+</html>

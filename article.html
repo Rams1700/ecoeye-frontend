@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eco Eye | Article</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script defer src="js/main.js"></script>
+  <style>
+    /* .article-wrap {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 28px;
+      max-width: 920px;
+      margin: 40px auto;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    }
+    .article-cover {
+      width: 100%; height: 340px; object-fit: cover; border-radius: 12px; margin-bottom: 20px;
+      border: 3px solid #2e7d32;
+    } */
+    .article-title { font-family: 'Playfair Display', serif; color:#1a531b; font-size: 2.2rem; margin: 10px 0 12px; }
+    .article-meta { color:#4b6b4e; margin-bottom: 16px; font-size: 0.95rem; }
+    .article-body p { line-height: 1.75; margin: 0 0 14px; color:#223; }
+    .tag { display:inline-block; background:#eaf5ea; color:#1b5e20; padding:6px 10px; border-radius:20px; margin:4px 6px 12px 0; font-size:0.85rem; }
+    .back { display:inline-block; margin-top:18px; color:#1b5e20; font-weight:600; }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+  <a class="logo" href="index.html">
+    <span class="dot">🌍</span>
+    <span>Eco Eye</span>
+  </a>
+
+  <div style="display:flex; align-items:center; gap:18px;">
+    <ul class="nav-links" style="display:flex; gap:20px;">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="categories.html">Eco Products</a></li>
+      <!-- single canonical cart link — keep this one -->
+      <li><a class="cart-link" href="cart.html">Cart (<span id="cartCount">0</span>)</a></li>
+      <li><a href="report.html">Report Garbage</a></li>
+      <li><a href="feedback.html">Feedback</a></li>
+
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+  </header>
+
+  <main class="content">
+    <div class="article-wrap" id="article">
+      <!-- JS will inject title, image, and content here -->
+           
+
+    </div>
+  </main>
+  <div class="article-cover-wrap">
+  <img class="article-cover" src="..." alt="..." />
+</div>
+
+
+  <footer>
+    <p>© 2025 Eco Eye | Connect • Care • Conserve</p>
+  </footer>
+  <script>
+/* Self-contained article renderer.
+   Usage: article.html?topic=trees
+*/
+
+(function(){
+  const articles = {
+    plastic: {
+      title: "End Plastic Pollution — One Step at a Time",
+      image: "https://www.techexplorist.com/wp-content/uploads/2024/04/plastic-ocean.jpg.webp",
+      tags: ["Plastic","Pollution","Lifestyle"],
+      youtube: "https://www.youtube.com/watch?v=1RDc2opwg0I",
+      content: `
+      <pre style="font-family: Arial, sans-serif; white-space: pre-wrap;"><span class="h">Introduction</span>
+Plastic pollution is one of the most devastating environmental challenges of the 21st century. Over 8 million tons of plastic enter the oceans each year, poisoning marine life and contaminating ecosystems.
+<span class="h">What Causes Plastic Pollution?</span>
+Overuse of single-use plastics
+Lack of waste management infrastructure
+Improper disposal habits
+Industrial dumping
+Microplastics from cosmetics, clothing fibers, tire dust
+<span class="h">Effects on Environment</span>
+Marine life deaths — turtles, fish, whales, birds swallow plastic thinking it is food.
+Microplastics enter human food, causing hormonal and health issues.
+Plastic destroys soil fertility.
+Clogged drainage systems lead to floods.
+Toxic chemicals leach into water bodies.
+<span class="h">Global Examples</span>
+The Great Pacific Garbage Patch — a floating plastic island twice the size of Texas
+Beaches around the world covered in plastic waste
+Fish being found with plastic inside their stomach
+<span class="h">Solutions</span>
+Ban single-use plastics
+Promote biodegradable packaging
+Encourage recycled plastic industries
+Conduct ocean cleanup missions
+Educate communities
+<span class="h">What Individuals Can Do</span>
+Carry reusable items
+Avoid plastic straws, spoons, cups, bags
+Buy products with minimal packaging
+Participate in cleanup drives<br>
+<span class="h">Conclusion</span>
+Plastic pollution is a global crisis requiring global unity. Together, we can build a cleaner planet.</pre>
+      `
+    },
+    trees: {
+      title: "Plant Trees, Breathe Easy",
+      image: "https://t3.ftcdn.net/jpg/05/12/99/62/360_F_512996203_b8xRtBzzUd2BRtjhOCrvdBhs9wx89BR5.jpg",
+      tags: ["Trees","Climate","Community"],
+      youtube: "https://www.youtube.com/watch?v=kms7em9fI50 ",
+      content: `
+        <pre style="font-family: Arial, sans-serif; white-space: pre-wrap;"><span class="h">Introduction</span>
+          Trees are Earth’s greatest gift. As urbanization increases, planting trees has become essential for survival.
+          Trees are the lungs of our planet. They absorb carbon dioxide, release oxygen, prevent soil erosion, regulate rainfall, and support thousands of species. Planting trees is one of the simplest yet most powerful ways to combat climate change.
+<span class="h">Importance of Trees</span>
+Fight climate change
+Prevent soil erosion
+Improve air quality
+Maintain the water cycle
+Provide fruits, medicines, and shelter
+Support biodiversity
+Current Issues
+Massive deforestation
+Forest fires
+Urbanization reducing green spaces
+Climate change affecting forests
+<span class="h">Benefits of Planting Trees</span>
+Climate regulation through carbon absorption
+Reduced air pollution
+Cooler temperatures in cities
+Increased rainfall
+Health benefits — reduced stress, improved mood
+Community Initiatives
+School-based tree planting drives
+Urban forest projects
+Government reforestation missions
+Adopt-a-tree programs
+<span class="h">How Students Can Contribute</span>
+Participate in plantation events
+Nurture saplings until they grow
+Spread awareness
+Reduce paper waste<br>
+<span class="h">Conclusion</span>
+A greener planet begins with a single sapling. Planting trees today builds a better tomorrow.</pre>
+      `
+    },
+    solar: {
+      title: "Power the Future with Solar Energy",
+      image: "https://enerparc.in/wp-content/uploads/2025/08/Benefits-of-Solar-Energy.jpg",
+      tags: ["Solar","Renewables","Energy"],
+      youtube: "https://www.youtube.com/watch?v=_KenyHPzGPw",
+      content: `
+      <pre style="font-family: Arial, sans-serif; white-space: pre-wrap;">
+<span class="h">Introduction</span>
+Solar energy is energy obtained from the sun. It is a renewable, clean, and sustainable source of power.
+As fossil fuels are limited and cause pollution, solar energy has become an important solution to meet
+the world’s growing energy needs.
+
+<span class="h">What Is Solar Energy?</span>
+Solar energy is produced when sunlight is converted into electricity or heat using solar technologies
+such as solar panels and solar collectors.
+
+<span class="h">How Solar Energy Works?</span>
+- Solar panels contain photovoltaic (PV) cells
+- These cells absorb sunlight
+- Sunlight releases electrons, creating electric current
+- Electricity is used instantly or stored in batteries
+
+<span class="h">Applications of Solar Energy</span>
+- Rooftop solar panels
+- Solar street lights
+- Solar water heaters
+- Solar cookers
+- Solar-powered irrigation systems
+- Solar vehicles and charging stations
+
+<span class="h">Advantages of Solar Energy</span>
+- Renewable and unlimited
+- Eco-friendly and pollution-free
+- Reduces electricity bills
+- Low maintenance cost
+- Suitable for remote areas
+- Reduces dependence on fossil fuels
+
+<span class="h">Disadvantages of Solar Energy</span>
+- High initial installation cost
+- Depends on sunlight availability
+- Requires large installation space
+- Battery storage systems are costly
+
+<span class="h">Environmental Benefits</span>
+- Reduces greenhouse gas emissions
+- Slows global warming
+- Improves air quality
+- Conserves natural resources
+
+<span class="h">Future of Solar Energy</span>
+- Advanced battery storage
+- Solar glass windows
+- Floating solar farms
+- Space-based solar power
+
+<span class="h">Conclusion</span>
+Solar energy is one of the best alternatives to fossil fuels.
+Using solar power today ensures a cleaner, healthier, and sustainable future.
+</pre>
+
+      `
+    },
+    water: {
+      title: "Every Drop Counts — Water Conservation",
+      image: "https://www.spray.com/-/media/dam/industrial/europe/website-images/industries-applications-products-spraying-660x370/sustainability-660x370.ashx",
+      tags: ["Water","Conservation","Sustainability"],
+      youtube: "https://www.youtube.com/watch?v=6yCAPAqXodc",
+      content: `
+        <pre style="font-family: Arial, sans-serif; white-space: pre-wrap;"><span class="h">Introduction</span>
+          Water is finite. Fix leaks, use efficient fixtures, and capture rainwater for gardening to reduce consumption.
+Water is life. Every plant, animal, and human depends on clean water to survive. Yet the world is facing severe water shortages due to pollution, climate change, and overconsumption. Water conservation is critical for sustaining life on Earth.
+<span class="h">Why Water Is Scarce?</span>
+Overuse in agriculture
+Industrial pollution
+Wastage in households
+Declining groundwater levels
+Climate change reducing rainfall
+<span class="h">Effects of Water Shortage</span>
+Droughts and crop failure
+Food insecurity
+Health issues from contaminated water
+Loss of freshwater biodiversity
+Conflicts over water resources
+<span class="h">Ways to Conserve Water</span>
+Fix leaking taps
+Use bucket instead of shower
+Collect rainwater
+Use drip irrigation in farming
+Install low-flow taps
+Avoid wasting water during washing or cleaning
+Global Initiatives
+Rainwater harvesting projects
+Water recycling plants
+Government awareness campaigns
+Smart irrigation systems<br>
+<span class="h">Conclusion<span>
+Every drop truly counts. Saving water today protects life for future generations.</pre>
+      `
+    },
+    wildlife: {
+      title: "Protect Our Wildlife — Preserve Biodiversity",
+      image: "https://savetreessaveearth.com/wp-content/uploads/2023/01/wildlife-conservation.jpg",
+      tags: ["Wildlife","Biodiversity","Conservation"],
+      youtube: "https://www.youtube.com/playlist?list=PLeCPQtbuJaPv35nn-S5f-FOmTYhK4g_BW",
+      content: `
+<pre style="font-family: Arial, sans-serif; white-space: pre-wrap;"><span class="h">Introduction</span>
+Wildlife plays an irreplaceable role in maintaining the balance of ecosystems across the world. Every organism—from the tiniest insect to the largest elephant—contributes to the functioning of natural systems that support life on Earth, including humans.
+However, rapid industrial development, deforestation, pollution, climate change, and illegal wildlife trade have pushed thousands of species toward extinction. Protecting wildlife is no longer optional — it is essential for the survival of the planet.
+<span class="h">Why Wildlife Matters</span>
+Biodiversity ensures resilience:
+Rich biodiversity ensures ecosystems can withstand natural disasters, environmental changes, and diseases.
+Human survival depends on wildlife:
+Animals pollinate crops, control pests, maintain soil fertility, and regulate climate. Over 75% of global food crops rely on pollinators like bees and butterflies.
+Economic importance:
+Wildlife tourism generates billions of dollars and supports millions of jobs across the globe.
+Cultural & spiritual value:
+Many communities and traditions are deeply connected to animals and nature.
+<span class="h">Major Threats to Wildlife</span>
+Habitat loss due to urbanization, agriculture, mining.
+Poaching & illegal trade, especially for ivory, fur, exotic pets, and traditional medicines.
+Pollution, including plastics, chemicals, and oil spills.
+Climate change, affecting migration, breeding, and food availability.
+Deforestation, which destroys homes for millions of species.
+Consequences of Wildlife Loss
+Collapse of ecosystems
+Increased carbon levels due to fewer forests
+Rise in pests and crop failures
+Threats to global food security
+Loss of medicinal sources (many medicines come from wildlife)
+<span class="h">How We Can Protect Wildlife</span>
+Establish protected areas and wildlife corridors
+Enforce strict anti-poaching laws
+Support habitat restoration projects
+Reduce personal carbon footprint
+Promote responsible tourism
+Educate communities about conservation
+Global Success Stories
+The recovery of the tiger population in India
+Revival of the giant panda population in China
+Reintroduction of wolves in Yellowstone, restoring ecosystem balance<br>
+<span class="h">Conclusion<span>
+Protecting wildlife ensures stability for future generations. When we preserve nature, we protect ourselves.</pre>
+      `
+    },
+    recycle: {
+      title: "Reuse, Recycle, Reinvent — A Circular Economy",
+      image: "https://www.casemed.com/media/k2/items/cache/157c6c6cd616f458d56a6caf427711f8_XL.jpg",
+      tags: ["Recycling","Circular Economy","Waste Reduction"],
+      youtube: "https://www.youtube.com/watch?v=OqfooOMQrOg",
+      content: `
+        <pre style="font-family: Arial, sans-serif; white-space: pre-wrap;"><span class="h">Introduction</span>
+The world generates millions of tons of waste every day. Landfills are overflowing, oceans are polluted, and natural resources are becoming scarce. To solve this crisis, we must shift from a “use-and-throw” mindset to a circular economy, where materials are continuously reused and reinvented.
+<span class="h">What Is Reuse, Recycle, Reinvent?</span>
+Reuse: Using products more than once to reduce waste.
+Recycle: Converting waste materials into new products.
+Reinvent: Developing innovative methods, designs, and technologies to minimize waste entirely.
+<span class="h">Why This Matters?</span>
+Reduces landfill pollution and preserves soil and water quality.
+Saves energy — recycling aluminum saves 95% of the energy required to produce new metal.
+Conserves resources, such as wood, minerals, and water.
+Reduces carbon emissions linked to manufacturing.
+Problems Caused by a Throwaway Culture
+Excessive plastic waste harming marine life
+Growing e-waste due to fast technology trends
+Depletion of forests and mines
+Increased global warming from production industries
+<span class="h">How Reuse, Recycle, Reinvent Changes the World?</span>
+Upcycling converts old items into creative new products.
+Recycled plastics can become shoes, bags, roads, and furniture.
+Sustainable product design creates long-lasting items with minimal waste.
+Examples of Reinvention
+Roads made from recycled plastics
+Clothes made from ocean plastic bottles
+Biodegradable cutlery from corn starch
+Solar-powered recycling machines
+<span class="h">How Individuals Can Help?</span>
+Carry reusable bags, bottles, containers
+Segregate waste properly
+Buy recycled or eco-friendly products
+Donate old clothes, electronics, furniture
+Repair instead of replacing<br>
+<span class="h">Conclusion</span>
+A sustainable future depends on our ability to rethink and reinvent the way we use resources. Every small action contributes to global chang</pre>
+      `
+    }
+  };
+
+  function getYouTubeEmbedUrl(url){
+    if(!url) return "";
+    try{
+      const u = new URL(url);
+      if(u.hostname.includes("youtu.be")) {
+        const id = u.pathname.slice(1);
+        return "https://www.youtube.com/embed/" + id;
+      }
+      if(u.hostname.includes("youtube.com")){
+        const v = u.searchParams.get("v");
+        if(v) return "https://www.youtube.com/embed/" + v;
+        if(u.pathname.startsWith("/embed/")) return url;
+      }
+    } catch(e){}
+    return "";
+  }
+
+  function renderArticle(topic){
+    const container = document.getElementById("article");
+    if(!container) return;
+    const a = articles[topic];
+    if(!a){
+      container.innerHTML = `<h2 style="margin-top:0">Article not found</h2>
+        <p>Try one of these topics:</p>
+        <ul>
+          <li><a href="article.html?topic=plastic">plastic</a></li>
+          <li><a href="article.html?topic=trees">trees</a></li>
+          <li><a href="article.html?topic=solar">solar</a></li>
+        </ul>`;
+      return;
+    }
+
+    const embed = getYouTubeEmbedUrl(a.youtube);
+    let youtubeHtml = "";
+    if(a.youtube){
+      youtubeHtml = `<p style="margin-top:10px"><a href="${a.youtube}" target="_blank" rel="noopener" style="display:inline-block;padding:10px 16px;background:#66bb6a;color:#fff;border-radius:10px;text-decoration:none;font-weight:700">▶ Watch on YouTube</a></p>`;
+      if(embed){
+        youtubeHtml += `<div class="video-wrap" aria-hidden="false"><iframe src="${embed}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="YouTube video"></iframe></div>`;
+      }
+    }
+
+    container.innerHTML = `
+      <img class="article-cover" src="${a.image}" alt="${a.title}" />
+      <h1 class="article-title">${a.title}</h1>
+      <div class="article-meta">${(a.tags||[]).map(t=>`<span class="tag">${t}</span>`).join(" ")}</div>
+      <div class="article-body">${a.content}</div>
+      ${youtubeHtml}
+      <a class="back" href="index.html">← Back to Home</a>
+    `;
+  }
+
+  // read ?topic= from URL
+  const qs = new URLSearchParams(window.location.search);
+  const topic = (qs.get("topic") || "").trim().toLowerCase();
+  renderArticle(topic);
+})();
+</script>
+</body>
+</html>
+

@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cart — Eco Eye</title>
+
+  <!-- load fonts + your stylesheet -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- FORCE correct background + header/footer appearance -->
+  <style>
+    body.shop-background {
+      background:
+        linear-gradient(135deg, rgba(102, 187, 106, 0.15), rgba(46, 125, 50, 0.15)),
+        url('https://images.pexels.com/photos/2495651/pexels-photo-2495651.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')
+        center/cover fixed !important;
+      background-color: #f1f8e9 !important;
+      min-height: 100vh !important;
+    }
+
+    .background-overlay {
+      background-color: rgba(19, 78, 42, 0.45) !important;
+      z-index: -1 !important;
+    }
+
+    /* HEADER FIX – same as all other pages */
+    .site-header {
+      width: 100%;
+      background: linear-gradient(90deg, #2e7d32 0%, #1b5e20 100%);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+      z-index: 1000;
+    }
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo { 
+      color: #fff; 
+      font-weight: 700;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.2rem;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .nav-links a {
+      color: #eaf6ea;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 8px 10px;
+      border-radius: 6px;
+    }
+    .nav-links a:hover {
+      background: rgba(255,255,255,0.06);
+      color: white;
+    }
+    .cart-badge, #cartCount {
+      background: white;
+      color: #1b5e20;
+      min-width: 24px;
+      height: 24px;
+      display: inline-block;
+      text-align: center;
+      border-radius: 999px;
+      line-height: 24px;
+      font-weight: 800;
+      padding: 0 6px;
+    }
+
+    /* CART PAGE STYLES */
+    .cart-wrap {
+      max-width: 1200px;
+      margin: 36px auto;
+      padding: 24px;
+      background: rgba(241, 248, 233, 0.96);
+      border-radius: 16px;
+      border: 2px solid #c8e6c9;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 24px;
+    }
+    .cart-row {
+      display: flex;
+      gap: 16px;
+      padding: 14px;
+      background: white;
+      border-radius: 14px;
+      border: 1px solid #e8f5e9;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .cart-row img {
+      width: 110px;
+      height: 110px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 3px solid #e8f5e9;
+    }
+    .qty-btn {
+      background: white;
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 2px solid #66bb6a;
+      cursor: pointer;
+      font-weight: 700;
+      color: #1b5e20;
+    }
+    .remove-btn {
+      background: #ff5252;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .totals {
+      background: white;
+      border: 2px solid #c8e6c9;
+      padding: 18px;
+      border-radius: 12px;
+      position: sticky;
+      top: 20px;
+    }
+    .checkout-btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: #66bb6a;
+      color: white;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .site-footer {
+      background: #1b5e20;
+      color: #fff;
+      padding: 16px 0;
+      text-align: center;
+      width: 100%;
+      border-top: 6px solid rgba(0,0,0,0.06);
+      position: relative;
+      z-index: 50;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.06);
+    }
+    .site-footer .footer-inner { max-width:1200px; margin:0 auto; padding:0 20px; font-weight:600; color:#f1f8e9; }
+  </style>
+</head>
+
+<body class="shop-background">
+
+  <div class="background-container">
+    <div class="background-overlay"></div>
+  </div>
+
+  <!-- CORRECT HEADER (same as other pages) -->
+  <header class="site-header">
+    <div class="header-content">
+      <a href="index.html" class="logo">
+        <span class="dot">🌍</span>
+        Eco Eye
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="categories.html">Eco Products</a>
+        <a href="cart.html">Cart (<span id="cartCount">0</span>)</a>
+        <a href="report.html">Report Garbage</a>
+        <a href="feedback.html">Feedback</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="cart-wrap">
+    <section>
+      <a href="categories.html" style="color:black; font-weight:600;">← Back to categories</a>
+      <h1>Your Cart</h1>
+
+      <div id="cartArea"></div>
+
+      <button id="clearCart" class="qty-btn" style="margin-top:10px;">Clear Cart</button>
+      <a href="categories.html" style="margin-left:14px;">Continue shopping</a>
+    </section>
+
+    <aside class="totals">
+      <h3>Order summary</h3>
+      <p>Items: <span id="itemsCount">0</span></p>
+      <p>Subtotal: <span id="subtotal">₹0</span></p>
+      <p>Est. delivery: Free</p>
+      <h3>Total: <span id="grandTotal">₹0</span></h3>
+
+      <!-- <button id="checkout" class="checkout-btn">Proceed to Checkout</button> -->
+       <button id="checkout" class="checkout-btn" onclick="window.location.href='checkout.html'">
+  Proceed to Checkout
+</button>
+
+
+
+     
+    </aside>
+  </main>
+
+    <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">© 2025 Eco Eye | Connect • Care • Conserve</div>
+  </footer>
+
+
+  <!-- CART LOGIC JS -->
+  <script>
+    const CART_KEY = "ecoeye_cart";
+
+    function loadCart(){
+      try { return JSON.parse(localStorage.getItem(CART_KEY) || "[]"); }
+      catch { return []; }
+    }
+
+    function saveCart(c){
+      localStorage.setItem(CART_KEY, JSON.stringify(c));
+      updateCartCount();
+    }
+
+    function updateCartCount(){
+      const el = document.getElementById("cartCount");
+      if(!el) return;
+      const cart = loadCart();
+      const total = cart.reduce((t,i)=>t + (i.quantity||0), 0);
+      el.textContent = total;
+    }
+
+    function renderCart(){
+      const container = document.getElementById("cartArea");
+      const cart = loadCart();
+
+      if(!cart.length){
+        container.innerHTML = `<p>Your cart is empty.</p>`;
+        document.getElementById("itemsCount").textContent = 0;
+        document.getElementById("subtotal").textContent = "₹0";
+        document.getElementById("grandTotal").textContent = "₹0";
+        return;
+      }
+
+      container.innerHTML = "";
+      let subtotal = 0;
+
+      cart.forEach((item, index)=>{
+        subtotal += item.price * item.quantity;
+
+        const row = document.createElement("div");
+        row.className = "cart-row";
+
+        row.innerHTML = `
+          <img src="${item.image}" alt="">
+          <div>
+            <div style="font-weight:700;">${item.name}</div>
+            <div style="font-weight:800;">₹${item.price}</div>
+            <div style="margin-top:8px;">
+              <button class="qty-btn" data-i="${index}" data-op="dec">-</button>
+              <span style="margin:0 12px; font-weight:700;">${item.quantity}</span>
+              <button class="qty-btn" data-i="${index}" data-op="inc">+</button>
+
+              <button class="remove-btn" data-i="${index}" style="margin-left:12px;">Remove</button>
+            </div>
+          </div>
+        `;
+        container.appendChild(row);
+      });
+
+      document.getElementById("itemsCount").textContent = cart.reduce((t,i)=>t + (i.quantity||0), 0);
+      document.getElementById("subtotal").textContent = "₹" + subtotal;
+      document.getElementById("grandTotal").textContent = "₹" + subtotal;
+
+      // handlers
+      document.querySelectorAll(".qty-btn").forEach(btn=>{
+        btn.onclick = ()=>{
+          const i = btn.dataset.i;
+          const op = btn.dataset.op;
+          const cart = loadCart();
+
+          if (op === "inc") {
+  if (cart[i].quantity >= 5) {
+    alert("⚠️ Out of Order: Maximum 5 units allowed");
+    return;
+  }
+  cart[i].quantity++;
+}
+
+          else cart[i].quantity = Math.max(1, cart[i].quantity - 1);
+
+          saveCart(cart);
+          renderCart();
+        };
+      });
+
+      document.querySelectorAll(".remove-btn").forEach(btn=>{
+        btn.onclick = ()=>{
+          const i = btn.dataset.i;
+          const cart = loadCart();
+          cart.splice(i,1);
+          saveCart(cart);
+          renderCart();
+        };
+      });
+    }
+
+ 
+document.getElementById("checkout").onclick = () => {
+  window.location.href = "checkout.html";
+};
+   document.addEventListener("DOMContentLoaded", () => {
+  const clearBtn = document.getElementById("clearCart");
+
+  if (clearBtn) {
+    clearBtn.addEventListener("click", () => {
+      if (confirm("Clear cart?")) {
+        localStorage.removeItem(CART_KEY);
+        renderCart();
+        updateCartCount();
+      }
+    });
+  }
+});
+
+
+    updateCartCount();
+    renderCart();
+  </script>
+ <script src="js/main.js"></script>
+
+</body>
+</html>

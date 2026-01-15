@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Categories — Eco Eye Shop</title>
+  <style>
+    /* === RESET & BASE === */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background:
+        linear-gradient(135deg, rgba(102, 187, 106, 0.15), rgba(46, 125, 50, 0.15)),
+        url('https://images.pexels.com/photos/2495651/pexels-photo-2495651.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') center/cover fixed;
+      background-color: #f1f8e9;
+      color: #1b5e20;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* Typography */
+    h1, h2, h3 { font-family: 'Playfair Display', serif; color: #1a531b; }
+
+    /* === HEADER & NAVIGATION === */
+    header.topbar { background: linear-gradient(90deg, #2e7d32 0%, #1b5e20 100%); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    .navbar { display:flex; justify-content:space-between; align-items:center; padding:12px 40px; position:sticky; top:0; z-index:1000; }
+    .logo { display:flex; gap:10px; align-items:center; color:#fff; text-decoration:none; font-weight:700; }
+    .logo .dot { font-size:1.2rem; }
+    .nav-links { display:flex; gap:22px; list-style:none; align-items:center; }
+    .nav-links a { color:#fff; text-decoration:none; font-weight:600; }
+    .nav-links a:hover { color:#a5d6a7; }
+    .cart-link { color:#fff; text-decoration:none; display:inline-flex; gap:8px; align-items:center; }
+    #cartCount { background: #a5d6a7; color:#1b5e20; padding:2px 8px; border-radius:999px; font-weight:700; margin-left:4px; }
+
+    /* === PAGE WRAPPER === */
+    .wrap { max-width:1200px; margin:32px auto; padding:24px; }
+
+    /* hero-like header for categories page */
+    .page-hero {
+      background: linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.7));
+      border-radius: 12px;
+      padding: 36px;
+      text-align:center;
+      margin-bottom: 26px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      border: 1px solid rgba(165,214,167,0.5);
+    }
+    .page-hero h1 { font-size:2.2rem; color:#134e2a; margin-bottom:8px; }
+    .page-hero p { color:#2d6a4f; margin-bottom:6px; }
+
+    /* category index grid */
+    .grid { display:grid; gap:20px; grid-template-columns: repeat(auto-fill,minmax(260px,1fr)); }
+    .cat-card { background:#fff; border-radius:12px; padding:20px; box-shadow:0 8px 20px rgba(0,0,0,0.06); text-align:center; border:2px solid rgba(200,230,201,0.7); }
+    .cat-card h3 { margin-bottom:8px; color:#134e2a; }
+    .cat-card p { margin-bottom:14px; color:#3b6b4b; }
+    .btn { display:inline-block; padding:8px 14px; border-radius:12px; border:2px solid #a5d6a7; background:#e8f5e9; color:#1b5e20; cursor:pointer; text-decoration:none; font-weight:600; }
+
+    /* product grid */
+    .products-grid { display:grid; gap:24px; grid-template-columns: repeat(auto-fill,minmax(280px,1fr)); margin-top:20px; }
+    .product-item { background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 6px 20px rgba(0,0,0,0.08); display:flex; flex-direction:column; border:2px solid rgba(200,230,201,0.7); }
+    .product-item img { width:100%; height:220px; object-fit:cover; display:block; }
+    .product-info { padding:16px; display:flex; flex-direction:column; flex:1; }
+    .product-name { font-size:1.05rem; font-weight:700; color:#1b5e20; margin-bottom:8px; }
+    .product-category { font-size:0.8rem; color:#66bb6a; letter-spacing:0.6px; margin-bottom:8px; text-transform:uppercase; }
+    .product-description { color:#4b6b4e; flex:1; margin-bottom:12px; }
+    .product-footer { display:flex; justify-content:space-between; align-items:center; gap:12px; }
+    .product-price { font-weight:800; color:#134e2a; font-size:1.15rem; }
+    .add-to-cart-btn { padding:10px 16px; background:#66bb6a; color:#fff; border:none; border-radius:8px; cursor:pointer; font-weight:700; }
+    .add-to-cart-btn:hover { background:#4caf50; transform:translateY(-2px); }
+
+    .back { display:inline-block; margin-bottom:12px; color:white; text-decoration:none; font-weight:600;font-size: 1.9rem; }
+    .empty { text-align:center; padding:40px; color:#4b6b4e; }
+
+    footer.site-footer { margin-top:40px; background:#1b5e20; color:#fff; padding:18px 0; text-align:center; border-top:6px solid rgba(0,0,0,0.05); }
+
+    /* responsive tweaks */
+    @media (max-width:900px) {
+      .page-hero h1 { font-size:1.6rem; }
+      .product-item img { height:180px; }
+    }
+
+    /* small utility */
+    .center { text-align:center; }
+  </style>
+</head>
+<body class="shop-background">
+  <!-- Top header / navbar to match site -->
+  <header class="topbar">
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <a class="logo" href="index.html">
+        <span class="dot">🌍</span>
+        <span>Eco Eye</span>
+      </a>
+
+      <div style="display:flex; align-items:center; gap:18px;">
+        <ul class="nav-links" style="display:flex; gap:20px;">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="categories.html">Eco Products</a></li>
+          <li><a class="cart-link" href="cart.html">Cart (<span id="cartCount">0</span>)</a></li>
+          <li><a href="report.html">Report Garbage</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="page-hero">
+      <h1>Eco-Friendly Products — Categories</h1>
+      <p>Browse by category or click any category to view its products.</p>
+    </section>
+<!-- IMPACT STRIP (Your Impact So Far) -->
+<div id="impactStrip" class="impact-strip" role="region" aria-live="polite"
+     style="background: rgba(0,0,0,0.45); color: #ffffff !important; padding: 18px 22px;
+            border-radius: 12px; margin: 18px auto; max-width: 1100px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.35); font-weight:700; font-size:1.15rem;">
+  <div class="impact-left" style="color: #ffffff !important;">🛒 Items in cart: <strong id="impactCount" style="color:#ffffff !important;">0</strong></div>
+  <div class="impact-center" style="color: #ffffff !important;">🌿 Estimated CO₂ saved / year: <strong id="impactCO2" style="color:#ffffff !important;">0.0</strong> kg</div>
+  <div class="impact-right" style="color: #ffffff !important;">
+    <label style="white-space:nowrap; cursor:pointer; color:#ffffff !important; font-weight:700;">
+      <input type="checkbox" id="toggleImpact" style="width:20px; height:20px; margin-right:8px;" /> Show carbon impact on products
+    </label>
+  </div>
+</div>
+<!-- END IMPACT STRIP -->
+
+    <div id="mainContent">
+      <!-- category index OR products render here -->
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    © 2025 Eco Eye | Shop Sustainably 🌱
+  </footer>
+
+  <script>
+    /***** FULL PRODUCTS ARRAY *****/
+    
+    /* REPLACE your PRODUCTS array with this block */
+const PRODUCTS = [
+  { id: 1, name: "Stainless Steel Water Bottle", price: 699, category: "Reusable", description: "Insulated 1L bottle keeps drinks cold for 24h", image: "https://m.media-amazon.com/images/I/51TY1x%2BMNmL.jpg" },
+  { id: 2, name: "Glass Water Bottle with Sleeve", price: 549, category: "Reusable", description: "500ml borosilicate glass bottle with protective sleeve", image: "https://www.thewalletstore.in/cdn/shop/products/Untitled-1_d6bb5e4d-d78a-476f-863f-789288c9d229.jpg?v=1679119884&width=2048" },
+  { id: 3, name: "Reusable Coffee Cup", price: 399, category: "Reusable", description: "350ml bamboo fiber travel mug with lid", image: "https://i.etsystatic.com/17675784/r/il/5a5d3d/3207480887/il_fullxfull.3207480887_59u7.jpg" },
+  { id: 4, name: "Stainless Steel Lunch Box", price: 849, category: "Reusable", description: "3-tier leak-proof lunch container", image: "https://m.media-amazon.com/images/I/81m-%2Bq7yq5L.jpg" },
+  { id: 5, name: "Reusable Food Wraps Set", price: 449, category: "Reusable", description: "Beeswax wraps pack of 5 assorted sizes", image: "https://m.media-amazon.com/images/I/81ZJSePoZiL._AC_UF1000%2C1000_QL80_.jpg" },
+  { id: 6, name: "Silicone Food Storage Bags", price: 599, category: "Reusable", description: "Set of 4 reusable silicone bags for food storage", image: "https://m.media-amazon.com/images/I/71Ew4oTS7pL._AC_UF1000%2C1000_QL80_.jpg" },
+  { id: 7, name: "Metal Drinking Straws Set", price: 299, category: "Reusable", description: "8 stainless steel straws with cleaning brush", image: "https://m.media-amazon.com/images/I/41i6ZPBvcDL.jpg" },
+  { id: 8, name: "Reusable Produce Bags", price: 349, category: "Reusable", description: "Mesh bags set of 6 for fruits and vegetables", image: "https://m.media-amazon.com/images/I/713fglv64wL._AC_UF894%2C1000_QL80_.jpg" },
+  { id: 9, name: "Bamboo Cutlery Travel Set", price: 499, category: "Reusable", description: "Fork, spoon, knife, chopsticks with carrying pouch", image: "https://www.pipandwillow.com.au/cdn/shop/files/Eco-friendly-cutlery-set-flatlay.jpg?v=1736567178" },
+  { id: 10, name: "Collapsible Silicone Bowl", price: 399, category: "Reusable", description: "Space-saving foldable bowl with lid", image: "https://m.media-amazon.com/images/I/61JqNiLzIrL.jpg" },
+  { id: 11, name: "Reusable Coffee Filters", price: 279, category: "Reusable", description: "Set of 3 stainless steel pour-over filters", image: "https://m.media-amazon.com/images/I/71PGf8gmnIL._AC_UF350%2C350_QL80_.jpg" },
+  { id: 12, name: "Bamboo Cutting Board Set", price: 899, category: "Home", description: "3-piece bamboo chopping board set", image: "https://m.media-amazon.com/images/I/81T5bRtfBNL.jpg" },
+  { id: 13, name: "Coconut Bowl Set", price: 649, category: "Home", description: "Handcrafted coconut shell bowls - set of 4", image: "https://m.media-amazon.com/images/I/71mrM2LXksL._AC_UF894%2C1000_QL80_.jpg" },
+  { id: 14, name: "Bamboo Kitchen Utensils", price: 749, category: "Home", description: "7-piece bamboo cooking utensil set", image: "https://m.media-amazon.com/images/I/81udfLeM8gL._AC_SL1500_.jpg" },
+  { id: 15, name: "Compost Bin for Kitchen", price: 1299, category: "Home", description: "5L countertop compost container with filter", image: "https://m.media-amazon.com/images/I/718GWN%2BMRCL._AC_UF1000%2C1000_QL80_.jpg" },
+  { id: 16, name: "Beeswax Food Wraps", price: 549, category: "Home", description: "Organic cotton wraps - pack of 6", image: "https://brownliving.in/cdn/shop/articles/wrap-reuse-repeat-how-beeswax-wraps-can-reduce-waste-in-the-kitchen-498960.png?v=1742991927" },
+  { id: 17, name: "Wooden Dish Brush Set", price: 349, category: "Home", description: "Natural bristle brushes with replaceable heads", image: "https://m.media-amazon.com/images/I/71wOHuIBZML.jpg" },
+  { id: 18, name: "Eco-Friendly Dish Soap Bars", price: 249, category: "Home", description: "Plant-based soap bars - set of 3", image: "https://thebarehome.ca/cdn/shop/articles/BLOG_COVERS_6.png?v=1708448861" },
+  { id: 19, name: "Bamboo Paper Towels", price: 699, category: "Home", description: "Reusable washable bamboo towel rolls", image: "https://m.media-amazon.com/images/I/81IssKH82cL.jpg" },
+  { id: 20, name: "Natural Loofah Sponges", price: 299, category: "Home", description: "Pack of 5 biodegradable kitchen sponges", image: "https://m.media-amazon.com/images/I/81cyQbJEcqL._AC_UF1000%2C1000_QL80_.jpg" },
+  { id: 21, name: "Glass Food Storage Containers", price: 1499, category: "Home", description: "10-piece borosilicate glass container set", image: "https://m.media-amazon.com/images/I/71RliRADeDL._AC_UF894%2C1000_QL80_.jpg" },
+  { id: 22, name: "Bamboo Spice Rack", price: 1199, category: "Home", description: "Wall-mounted organizer with 12 glass jars", image: "https://nestasia.in/cdn/shop/files/SpiceJarsWithOrganiserRack_1.jpg?v=1724932456" },
+  { id: 23, name: "Bamboo Toothbrush Set", price: 299, category: "Personal Care", description: "Pack of 4 eco-friendly bamboo toothbrushes", image: "https://store.eco365.co.in/cdn/shop/products/Pack_of_2_-_new_700x700.jpg?v=1613055990" },
+  { id: 24, name: "Natural Deodorant Stick", price: 399, category: "Personal Care", description: "Aluminum-free, plastic-free deodorant", image: "https://greenfeels.in/cdn/shop/products/ForestFragrant_2_768994e1-60e0-4b93-acad-1565fad0c752.jpg?v=1613132564" },
+  { id: 25, name: "Solid Shampoo Bar", price: 449, category: "Personal Care", description: "Zero-waste shampoo bar for all hair types", image: "https://www.zerowastemvmt.com/cdn/shop/files/shampoo-bar-peppermint-eucalyptus-shampoo-bar-zero-waste-mvmt-with-container-757218.jpg?v=1762536462" },
+  { id: 26, name: "Reusable Cotton Rounds", price: 349, category: "Personal Care", description: "Set of 16 washable makeup remover pads", image: "https://m.media-amazon.com/images/I/911qbbGNarL._AC_UF1000%2C1000_QL80_.jpg" },
+  { id: 27, name: "Bamboo Hairbrush", price: 499, category: "Personal Care", description: "Natural bamboo brush with wooden bristles", image: "https://brownliving.in/cdn/shop/files/bamboo-hair-brush-with-bamboo-bristles-hair-brush-oiko-bahap1-2706894.png?v=1754620844" },
+  { id: 28, name: "Organic Soap Bar Set", price: 599, category: "Personal Care", description: "5 handmade soaps with essential oils", image: "https://www.chagrinvalleysoapandsalve.com/cdn/shop/collections/organic-soap-1000_40e481fe-05ba-4541-a0e7-4a4f220f0284.jpg?v=1711748587" },
+  { id: 29, name: "Safety Razor with Blades", price: 899, category: "Personal Care", description: "Stainless steel razor with 10 blades", image: "https://m.media-amazon.com/images/I/81i5WhC5%2BEL._AC_UF1000%2C1000_QL80_.jpg" },
+  { id: 30, name: "Natural Face Cream", price: 749, category: "Personal Care", description: "Organic moisturizer in glass jar", image: "https://jainroots.com/wp-content/uploads/2023/11/natural-face-cream-manufacturer-anadi-sutra.webp" },
+  { id: 31, name: "Biodegradable Dental Floss", price: 249, category: "Personal Care", description: "Silk floss in refillable glass container", image: "https://m.media-amazon.com/images/I/91UoxZR%2BHAL._AC_UF1000%2C1000_QL80_.jpg" },
+  { id: 32, name: "Konjac Sponge Set", price: 399, category: "Personal Care", description: "Natural facial cleansing sponges - pack of 3", image: "https://m.media-amazon.com/images/I/71Sqj6mHXLL._AC_UF1000%2C1000_QL80_.jpg" },
+  { id: 33, name: "Menstrual Cup", price: 649, category: "Personal Care", description: "Medical-grade silicone reusable cup", image: "https://m.media-amazon.com/images/I/81mG74z9IaL.jpg" },
+
+  /* BAG IMAGES — updated to ensure each product has a matching image */
+  { id: 34, name: "Jute Shopping Bag", price: 249, category: "Bags", description: "Durable and biodegradable jute grocery bag", image: "https://images.jdmagicbox.com/quickquotes/images_main/mtc1otmwmdg3ma-1759300870-ckt9x2wc.jpg" },
+  { id: 35, name: "Canvas Tote Bag Large", price: 399, category: "Bags", description: "Heavy-duty organic cotton tote", image: "https://i.etsystatic.com/25519571/r/il/157b76/3752030588/il_570xN.3752030588_d4f0.jpg" },
+  { id: 36, name: "Recycled Plastic Backpack", price: 1499, category: "Bags", description: "Made from 20 recycled bottles", image: "https://www.recycle.green/cdn/shop/products/IMG-20180203-WA0005_1024x1024.jpg?v=15716091810" },
+  { id: 37, name: "Hemp Drawstring Bag", price: 299, category: "Bags", description: "Natural hemp bag for bulk shopping", image: "https://hemcrafts.com/wp-content/uploads/2021/12/1001-1.jpg" },
+  { id: 38, name: "Foldable Shopping Tote", price: 349, category: "Bags", description: "Compact nylon bag fits in pocket", image: "https://m.media-amazon.com/images/I/61JqUthFLRL.jpg" },
+  { id: 39, name: "Cork Messenger Bag", price: 2499, category: "Bags", description: "Vegan leather alternative messenger bag", image: "https://i.etsystatic.com/13428584/r/il/5d05c0/3084243920/il_fullxfull.3084243920_rduv.jpg" },
+  { id: 40, name: "Organic Cotton Market Bag", price: 449, category: "Bags", description: "French-style string shopping bag", image: "https://m.media-amazon.com/images/I/71vB5Re66CS._AC_UY1000_.jpg" },
+  { id: 41, name: "Insulated Lunch Bag", price: 699, category: "Bags", description: "Eco-friendly thermal lunch tote", image: "https://nestasia.in/cdn/shop/files/LunchBags_2_8d50310d-3668-42ae-8844-b2b450b73ce7.jpg?v=1707310940" },
+  { id: 42, name: "Jute Wine Bottle Bag", price: 199, category: "Bags", description: "Single bottle carrier with handle", image: "https://m.media-amazon.com/images/I/51GjAFpqZqL.jpg" },
+  { id: 43, name: "Canvas Grocery Bag Set", price: 899, category: "Bags", description: "Set of 5 reusable shopping bags", image: "https://m.media-amazon.com/images/I/71SxzPVTLWL._AC_UY1100_.jpg" },
+  { id: 44, name: "Eco-Friendly Gym Bag", price: 1799, category: "Bags", description: "Recycled material sports duffel bag", image: "https://earthhero.com/cdn/shop/files/greengymbag.jpg?v=1756919204&width=3000" },
+
+  { id: 45, name: "Recycled Paper Notebook", price: 299, category: "Stationery", description: "A5 notebook with 100% recycled paper", image: "https://m.media-amazon.com/images/I/81a03ciX-dL._AC_UF894%2C1000_QL80_.jpg" },
+  { id: 46, name: "Bamboo Pen Set", price: 399, category: "Stationery", description: "Set of 5 biodegradable bamboo pens", image: "https://m.media-amazon.com/images/I/51IT-ZQUbwL._AC_UF1000%2C1000_QL80_.jpg" },
+  { id: 47, name: "Plantable Seed Paper Cards", price: 449, category: "Stationery", description: "Pack of 10 greeting cards with wildflower seeds", image: "https://i.etsystatic.com/21873794/r/il/3684b3/3746248980/il_570xN.3746248980_l9gi.jpg" },
+  { id: 48, name: "Cork Desk Organizer", price: 899, category: "Stationery", description: "Sustainable cork desktop storage set", image: "https://i.etsystatic.com/10745260/r/il/d7d70e/1480775302/il_570xN.1480775302_2yp6.jpg" },
+  { id: 49, name: "Recycled Pencil Set", price: 249, category: "Stationery", description: "12 pencils made from recycled newspaper", image: "https://i.etsystatic.com/14028915/r/il/4a8054/1682830010/il_fullxfull.1682830010_nqap.jpg" },
+  { id: 50, name: "Bamboo Ruler & Scale Set", price: 199, category: "Stationery", description: "Geometry set made from bamboo", image: "https://www.onyxandgreen.com/wp-content/uploads/2021/05/schoolsupply-67_1_2048x2048.jpeg" },
+  { id: 51, name: "Eco-Friendly Sticky Notes", price: 299, category: "Stationery", description: "Recycled paper sticky note pads", image: "https://d1x3eomzsc6lfz.cloudfront.net/apprintab/images/opt/products_gallery_images/recycled-sticky-notes-pad.jpg?v=5634" },
+  { id: 52, name: "Natural Rubber Eraser Set", price: 149, category: "Stationery", description: "Pack of 6 non-plastic erasers", image: "https://m.media-amazon.com/images/I/71dfK-cbYhL.jpg" },
+  { id: 53, name: "Jute Pencil Pouch", price: 349, category: "Stationery", description: "Handmade pencil case with zipper", image: "https://m.media-amazon.com/images/I/71xWDDACzQL._AC_UY1100_.jpg" },
+  { id: 54, name: "Recycled Paper Sketchbook", price: 599, category: "Stationery", description: "A4 artist sketchbook 80 pages", image: "https://anupam.com/cdn/shop/files/A4KHAKHI_KRAFT_Wire_O_BOOK160GSM13.jpg?v=1739524453" },
+  { id: 55, name: "Wooden Desk Calendar", price: 749, category: "Stationery", description: "Perpetual bamboo block calendar", image: "https://m.media-amazon.com/images/I/71gS%2B32gYEL.jpg" }
+];
+
+
+    /***** Helpers *****/
+    function escapeHtml(str="") {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function getCategoryCounts() {
+      const map = {};
+      for (const p of PRODUCTS) map[p.category] = (map[p.category] || 0) + 1;
+      return map;
+    }
+
+    function qs(param) { return new URLSearchParams(location.search).get(param); }
+
+    /* CART (localStorage) */
+        const CART_KEY = "ecoeye_cart";
+        const MAX_QTY_PER_ITEM = 5;
+
+    function loadCart() {
+      try {
+        return JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+      } catch {
+        return [];
+      }
+    }
+    function saveCart(cart) {
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+      updateCartBadge();
+    }
+
+    // same helper as in main.js (short version)
+    function getEcoImpactMessage(product, quantity = 1) {
+      const categoryImpact = {
+        "Reusable":     { co2: 5,   text: "by replacing single-use plastic items." },
+        "Bags":         { co2: 4,   text: "by avoiding new plastic bags every trip." },
+        "Home":         { co2: 3,   text: "by using low-waste home essentials." },
+        "Personal Care":{ co2: 2,   text: "by cutting down on plastic bathroom bottles." },
+        "Stationery":   { co2: 1.5, text: "with recycled papers and plastic-free tools." }
+      };
+      const impact = categoryImpact[product.category] || { co2: 2, text: "with this eco-friendly choice." };
+      const saved = (impact.co2 * quantity).toFixed(1);
+      return `🌍 This choice can avoid about ${saved} kg of CO₂ each year and helps the planet ${impact.text}`;
+    }
+
+    function addToCart(product) {
+  const cart = loadCart();
+  const ex = cart.find(i => i.id === product.id);
+
+  // 🔒 LIMIT CHECK
+  if (ex && ex.quantity >= MAX_QTY_PER_ITEM) {
+    alert("⚠️ Out of Order: Maximum 5 units allowed per product");
+    return;
+  }
+
+  if (ex) {
+    ex.quantity += 1;
+  } else {
+    cart.push({ ...product, quantity: 1 });
+  }
+
+  saveCart(cart);
+
+  alert(
+    `✅ ${product.name} added to cart!\n\n` +
+    getEcoImpactMessage(product, 1) +
+    `\n\nThank you for helping keep the Earth greener 💚`
+  );
+}
+
+
+    function updateCartBadge() {
+      const cart = loadCart();
+      const total = cart.reduce((s,i)=>s+(i.quantity||0),0);
+      const el = document.getElementById("cartCount");
+      if (el) el.textContent = total;
+    }
+
+    /***** RENDERING *****/
+    function renderCategoryIndex() {
+      const counts = getCategoryCounts();
+      const cats = Object.keys(counts).sort();
+      const main = document.getElementById("mainContent");
+      if (!main) return;
+      const html = ['<section class="grid">'];
+      for (const c of cats) {
+        html.push(`
+          <article class="cat-card">
+            <h3>${escapeHtml(c)}</h3>
+            <p>${counts[c]} product${counts[c] > 1 ? "s" : ""}</p>
+            <a class="btn" href="?category=${encodeURIComponent(c)}">View products</a>
+          </article>
+        `);
+      }
+      html.push('</section>');
+      main.innerHTML = html.join('');
+    }
+
+    function renderProductsForCategory(cat) {
+      const main = document.getElementById("mainContent");
+      if (!main) return;
+      const list = PRODUCTS.filter(p => p.category === cat);
+      const backLink = '<a class="back" href="categories.html">← Back to categories</a>';
+      if (!list.length) {
+        main.innerHTML = backLink + '<div class="empty"><p>No products found in this category.</p></div>';
+        return;
+      }
+      const html = [backLink, `<h2 style="margin:12px 0 8px; color:white;">${escapeHtml(cat)} — ${list.length} product${list.length>1?"s":""}</h2>`];
+      html.push('<section class="products-grid">');
+      for (const p of list) {
+        html.push(`
+          <article class="product-item">
+            <img src="${p.image}" alt="${escapeHtml(p.name)}" loading="lazy" />
+            <div class="product-info">
+              <div class="product-category">${escapeHtml(p.category)}</div>
+              <div class="product-name">${escapeHtml(p.name)}</div>
+              <div class="product-description">${escapeHtml(p.description)}</div>
+              <div class="product-footer">
+                <div class="product-price">₹${p.price}</div>
+                <button class="add-to-cart-btn" data-id="${p.id}">Add to Cart</button>
+              </div>
+            </div>
+          </article>
+        `);
+      }
+      html.push('</section>');
+      main.innerHTML = html.join('');
+      document.querySelectorAll(".add-to-cart-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+  const id = Number(btn.dataset.id);
+  const prod = PRODUCTS.find(x => x.id === id);
+  if (!prod) return;
+
+  addToCart(prod);
+
+  // 🔥 FORCE UI UPDATE
+  updateCartBadge();
+  updateImpactStrip();
+});
+
+      });
+    }
+
+   
+    function updateImpactStrip() {
+  const cart = loadCart();
+
+  const itemCount = cart.reduce((s, i) => s + (i.quantity || 0), 0);
+  const co2Saved = cart.reduce((s, i) => {
+    const impact = {
+      "Reusable": 5,
+      "Bags": 4,
+      "Home": 3,
+      "Personal Care": 2,
+      "Stationery": 1.5
+    };
+    return s + ((impact[i.category] || 2) * (i.quantity || 1));
+  }, 0);
+
+  const countEl = document.getElementById("impactCount");
+  const co2El = document.getElementById("impactCO2");
+
+  if (countEl) countEl.textContent = itemCount;
+  if (co2El) co2El.textContent = co2Saved.toFixed(1);
+}
+ /* INIT */
+    (function init() {
+      updateCartBadge();
+    updateImpactStrip();
+
+      const cat = qs("category");
+      if (cat) {
+        renderProductsForCategory(cat);
+      } else {
+        renderCategoryIndex();
+      }
+    })();
+  </script>
+</body>
+</html>
